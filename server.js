@@ -12,7 +12,10 @@ const app = express();
 
 //connect to mongodb -- Francis' way
 mongoose.Promise = global.Promise;
-mongoose.connect(config.DATABASE);
+mongoose.connect(
+  config.DATABASE,
+  { useNewUrlParser: true }
+);
 
 //body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
