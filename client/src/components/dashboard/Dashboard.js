@@ -7,7 +7,7 @@ import {
   deleteAccountAction
 } from "../../actions/profileAction";
 import Spinner from "../common/Spinner";
-import ProfileEdit from "./ProfileEdit";
+import ProfileView from "./ProfileView";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -35,7 +35,7 @@ class Dashboard extends Component {
               Welcome{" "}
               <Link to={`/profile/${profile.handle}`}>{user.name}!</Link>
             </p>
-            <ProfileEdit />
+            <ProfileView />
 
             <div style={{ marginBottom: "60px" }} />
             <button
