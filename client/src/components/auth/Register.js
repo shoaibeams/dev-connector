@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 import { connect } from "react-redux";
 import { registerUserAction } from "../../actions/authActions";
 import PropTypes from "prop-types";
@@ -59,7 +58,7 @@ class Register extends Component {
               <p className="lead text-center">
                 Create your DevConnector account
               </p>
-              <form noValidate onSubmit={this.onSubmit} >
+              <form noValidate onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="Name"
                   name="name"
@@ -91,7 +90,7 @@ class Register extends Component {
                   type="password"
                   value={this.state.value}
                   onChange={this.onChange}
-                  error={errors.password} 
+                  error={errors.password}
                 />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
