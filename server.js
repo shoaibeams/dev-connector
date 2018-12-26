@@ -9,6 +9,9 @@ const posts = require("./routes/api/posts");
 const path = require("path");
 
 const app = express();
+//body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //connect to mongodb -- Francis' way
 // mongoose.Promise = global.Promise;
@@ -17,23 +20,16 @@ const app = express();
 //   { useNewUrlParser: true }
 // );
 
-//body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-//DB Config
-const db = require('./config/keys').mongoURI;
-
 //connect to mongodb -- Brad's way
+//DB Config
+const db = require("./config/keys").mongoURI;
+
 mongoose
   .connect(db)
-  .then(() => {
-    console.log("MongoDB Connected");
-  })
+  .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
 //passport middleware
-
 app.use(passport.initialize());
 
 //passport Config
@@ -44,15 +40,15 @@ app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 
-//Serve static routes if in production
+// Server static assets if in production
 if (process.env.NODE_ENV === "production") {
-  //Set Static Folder
+  // Set static folder
   app.use(express.static("client/build"));
+
   app.get("*", (req, res) => {
-    res.sendfile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
 const port = process.env.PORT || 5000;
-
 app.listen(port, () => console.log(`Server running on port ${port}`));
