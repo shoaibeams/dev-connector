@@ -4,7 +4,7 @@ const config = {
     DATABASE: process.env.MONGODB_URI
   },
   default: {
-    SECRET: "SECRET",
+    SECRET: "secret",
     DATABASE: "mongodb://localhost:27017/dev-connector"
   }
 };

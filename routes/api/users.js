@@ -3,7 +3,7 @@ const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+const config = require("../../config/config").get(process.env.NODE_ENV);
 const passport = require("passport");
 
 //load Input validation
@@ -67,7 +67,6 @@ router.post("/register", (req, res) => {
 //@access   Public
 
 router.post("/login", (req, res) => {
-
   const { errors, isValid } = validateLoginInput(req.body);
 
   //check validation
@@ -82,7 +81,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     //check for user
     if (!user) {
-      errors.email = "User not found"
+      errors.email = "User not found";
       return res.status(404).json(errors);
     }
 
@@ -96,19 +95,14 @@ router.post("/login", (req, res) => {
         const payload = { id: user.id, name: user.name, avatar: user.avatar };
 
         //sign token
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
+        jwt.sign(payload, config.SECRET, { expiresIn: 3600 }, (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+        });
       } else {
-        errors.password = "Password incorrect"
+        errors.password = "Password incorrect";
         res.status(400).json(errors);
       }
     });

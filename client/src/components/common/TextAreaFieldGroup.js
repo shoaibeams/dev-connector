@@ -33,7 +33,7 @@ TextAreaFieldGroup.propTypes = {
   value: PropTypes.string,
   info: PropTypes.string,
   error: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func
 };
 
 export default TextAreaFieldGroup;
