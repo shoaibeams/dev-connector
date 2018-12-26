@@ -30,23 +30,24 @@ class Profile extends Component {
       profileContent = <Spinner />;
     } else {
       profileContent = (
-        <div className="row">
-          <div className="col-md-6">
-            <Link to="/profiles" className="btn btn-light mb-3 float-left">
-              Back to profiles
-            </Link>
+        <div>
+          <div className="row">
+            <div className="col-md-6">
+              <Link to="/profiles" className="btn btn-light mb-3 float-left">
+                Back To Profiles
+              </Link>
+            </div>
+            <div className="col-md-6" />
           </div>
-          <div className="col-md-6">
-            <ProfileHeader profile={profile} />
-            <ProfileAbout profile={profile} />
-            <ProfileCreds
-              education={profile.education}
-              experience={profile.experience}
-            />
-            {profile.githubusername ? (
-              <ProfileGithub username={profile.githubusername} />
-            ) : null}
-          </div>
+          <ProfileHeader profile={profile} />
+          <ProfileAbout profile={profile} />
+          <ProfileCreds
+            education={profile.education}
+            experience={profile.experience}
+          />
+          {profile.githubusername ? (
+            <ProfileGithub username={profile.githubusername} />
+          ) : null}
         </div>
       );
     }
