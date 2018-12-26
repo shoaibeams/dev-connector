@@ -6,6 +6,7 @@ const config = require("./config/config").get(process.env.NODE_ENV);
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
+const path = require("path");
 
 const app = express();
 
@@ -43,6 +44,15 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
+
+//Serve static routes if in production
+if (process.env.NODE_ENV === "production") {
+  //Set Static Folder
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendfile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const port = process.env.PORT || 5000;
 
